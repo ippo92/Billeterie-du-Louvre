@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billeterie du Louvre{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/ticketstyle.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7 col-md-push-5">
+
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="booking-form">
+                            {{ dump(form) }}
+                            {{ form_start(form) }}
+                            {% for tickets in form  %}
+                                {% set children = tickets.children %}
+                                {% for child in children  %}
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                {{ form_label(child.parent.children.firstname,'prenom',{'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_widget(child.parent.children.firstname)}}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                {{ form_row(child.parent.children.lastname)}}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                {{ form_row(child.parent.children.country)}}
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                {{ form_row(child.parent.children.dateOfBirth)}}
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                {{ form_row(child.parent.children.category)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            {% endfor %}
+                            <div class="form-btn">
+                                    <button type="submit" class="submit-btn">Réservez</button>
+                                </div>
+                                {{ form_end(form) }}
+
+                            </>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

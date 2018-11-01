@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billeterie du Louvre{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+<link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 col-md-push-5">
+                        <div class="booking-cta">
+                            <h1>Réservez vos billets</h1>
+                            <p>Le musée du Louvre, inauguré en 1793 sous l'appellation Muséum central des arts de la République dans le palais du Louvre, ancienne résidence royale située au centre de Paris, est aujourd'hui le plus grand musée d'art et d'antiquités au monde. Sa surface d'exposition est de 72 735 m²
+                            </p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#louvre">
+                                Consulter nos tarifs
+                            </button>
+                            <div class="modal fade" id="louvre" tabindex="-1" role="dialog" aria-labelledby="louvreLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="louvreLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-pull-7">
+                        <div class="booking-form">
+                                {{ form_start(form) }}
+                                <div class="form-group">
+                                    <span class="form-label">Nombre de billets</span>
+                                    {{ form_widget(form.numberOfTickets) }}
+                                    <span class="select-arrow"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Date de la visite</span>
+                                            {{ form_widget(form.date) }}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Type de billet</span>
+                                    {{ form_widget(form.type) }}
+                                    <span class="select-arrow"></span>
+                                </div>
+                                <div class="form-btn">
+                                    <button type="submit" class="submit-btn">Réservez</button>
+                                </div>
+                                {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
