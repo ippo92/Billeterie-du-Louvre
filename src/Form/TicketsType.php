@@ -20,28 +20,34 @@ class TicketsType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                'value' => 'Oui',
+                'false_values' => ['Non'],
                 'label' => 'tarif réduit',
                 'required' => false
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label' => 'Nom'
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label' => 'Prénom'
             ])
             ->add('country', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label' => 'Pays'
             ])
             ->add('dateOfBirth', DateType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                'label' => 'Date de naissance',
                 'widget' => 'single_text',
             ])
         ;

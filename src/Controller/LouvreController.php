@@ -86,31 +86,11 @@ class LouvreController extends AbstractController
         $data = $request->getSession()->get('orders');
         $tickets = $request->getSession()->get('tickets');
         $number = $data->getNumberOfTickets();
-        $price = 0;
         $datedubillet = $data->getDate();
+
         //$datedenaissance = $tickets->getDateOfBirth();
 
-        for ($i=0; $i<$number ;$i++){
-            $datedenaissance = $tickets[$i]->getDateOfBirth();
-            $age = $datedubillet->diff($datedenaissance)->y;
 
-            if ($tickets[$i]->getCategory() == "1") {
-            $price += 10;
-            }
-
-            dump($age);
-            if ($tickets[$i]->getCategory() != "1") {
-                if ($age<12 && $age>=4){
-                    $price += 8;
-                }
-                if ($age<60 && $age>=12){
-                    $price += 16;
-                }
-                if ($age>=60){
-                    $price += 12;
-                }
-            }
-        }
         for ($i=0; $i<$number ;$i++){
             $datacategory = $tickets[$i]->getCategory();
             if ($datacategory == "1"){
