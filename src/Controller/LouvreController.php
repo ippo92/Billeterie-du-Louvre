@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Tickets;
 use App\Entity\Orders;
+use App\Service\Price;
 use App\Repository\TicketsRepository;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -81,12 +82,13 @@ class LouvreController extends AbstractController
     /**
      * @Route("/order", name="order")
      */
-    public function order(Request $request)
+    public function order(Request $request, Price $priceservice)
     {
         $data = $request->getSession()->get('orders');
         $tickets = $request->getSession()->get('tickets');
         $number = $data->getNumberOfTickets();
         $datedubillet = $data->getDate();
+        $price = $priceservice->getTicketsPrice($data, $tickets, $datedubillet);
 
         //$datedenaissance = $tickets->getDateOfBirth();
 
@@ -104,7 +106,7 @@ class LouvreController extends AbstractController
         'number' => $number,
         'price' => $price,
         'category' => $category,
-        'ticket' => $tickets
+        'tickets' => $tickets
     ]);
     }
 

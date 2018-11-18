@@ -17,196 +17,44 @@
                     <div class="col-md-12 ">
                         <div class="booking-form">
                             <h1>Récapitulatif de votre commande :</h1>
-                            {% if number >= 1 %}
-                                <p>Billet 1</p>
+                            {% for ticket in tickets %}
+                            <p>Billet 1</p>
                                 <div class="row">
 
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <span class="form-label">Nom</span>
-                                            {{ ticket.0.firstname }}
+                                            {{ ticket.firstname }}
                                         </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <span class="form-label">Prénom</span>
-                                            {{ ticket.0.lastname }}
+                                            {{ ticket.lastname }}
                                         </div>
 
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <span class="form-label">Pays</span>
-                                            {{ ticket.0.country }}
+                                            {{ ticket.country }}
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <span class="form-label">Date de naissance</span>
-                                            {{ ticket.0.dateOfBirth|date("d/m/Y") }}
+                                            {{ ticket.dateOfBirth|date("d/m/Y") }}
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <span class="form-label">Tarif réduit?</span>
-                                            {{ category.0 }}
+                                            {{ ticket.category }}
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}
-                            {% if number >= 2 %}
-                                <p>Billet 2</p>
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Nom</span>
-                                            {{ ticket.1.firstname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Prénom</span>
-                                            {{ ticket.1.lastname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Pays</span>
-                                            {{ ticket.1.country }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Date de naissance</span>
-                                            {{ ticket.1.dateOfBirth|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Tarif réduit?</span>
-                                            {{ category.1 }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {% if number >= 3 %}
-                                <p>Billet 3</p>
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Nom</span>
-                                            {{ ticket.2.firstname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Prénom</span>
-                                            {{ ticket.2.lastname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Pays</span>
-                                            {{ ticket.2.country }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Date de naissance</span>
-                                            {{ ticket.2.dateOfBirth|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Tarif réduit?</span>
-                                            {{ category.2 }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {% if number >= 4  %}
-                                <p>Billet 4</p>
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Nom</span>
-                                            {{ ticket.3.firstname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Prénom</span>
-                                            {{ ticket.3.lastname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Pays</span>
-                                            {{ ticket.3.country }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Date de naissance</span>
-                                            {{ ticket.3.dateOfBirth|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Tarif réduit?</span>
-                                            {{ category.3 }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {% if number >= 5 %}
-                                <p>Billet 5</p>
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Nom</span>
-                                            {{ ticket.4.firstname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Prénom</span>
-                                            {{ ticket.4.lastname }}
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Pays</span>
-                                            {{ ticket.4.country }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <span class="form-label">Date de naissance</span>
-                                            {{ ticket.4.dateOfBirth|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <span class="form-label">Tarif réduit?</span>
-                                            {{ category.4 }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
+                            {% endfor %}
                             <div class="form-btn">
                                 PRIX TOTAL : {{ price }} EUROS <br>
                                 <button type="submit" class="submit-btn">Payez</button>

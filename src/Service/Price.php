@@ -9,7 +9,6 @@ class Price
 
     public function getTicketsPrice($data, $tickets, $datedubillet){
         $price = 0;
-        //$data = $this->request->getSession()->get('orders');
         $number = $data->getNumberOfTickets();
         for ($i=0; $i<$number ;$i++){
             $datedenaissance = $tickets[$i]->getDateOfBirth();
