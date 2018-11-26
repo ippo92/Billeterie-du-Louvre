@@ -30,10 +30,11 @@ class OrdersType extends AbstractType
                 ]
             ])
             ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ],
-                'widget' => 'single_text'
+                    'class' => 'form-control datepicker'
+                ]
             ])
             ->add('type', ChoiceTYpe::class, [
             'attr' => [
@@ -43,7 +44,12 @@ class OrdersType extends AbstractType
             'Journée' => 1,
             'Demi-journée(à partir de 14 heures)' => 0,
         ]
-    ])
+           ])
+            ->add('mail', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
         ;
     }
 

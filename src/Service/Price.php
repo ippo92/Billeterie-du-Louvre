@@ -14,10 +14,13 @@ class Price
             $datedenaissance = $tickets[$i]->getDateOfBirth();
             $age = $datedubillet->diff($datedenaissance)->y;
 
-            if ($tickets[$i]->getCategory() == "1" && $age > 3) {
+            if ($tickets[$i]->getCategory() == "tarif réduit" && $age > 12) {
                 $price += 10;
             }
-            if ($tickets[$i]->getCategory() != "1") {
+            if ($tickets[$i]->getCategory() == "tarif réduit" && $age < 12 && $age>=4) {
+                $price += 8;
+            }
+            if ($tickets[$i]->getCategory() == "tarif normal") {
                 if ($age<12 && $age>=4){
                     $price += 8;
                 }

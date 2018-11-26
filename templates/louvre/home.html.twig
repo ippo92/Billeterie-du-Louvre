@@ -25,17 +25,19 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="louvreLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="louvreLabel">Nos tarifs</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            ...
+                                            -à partir de 12 ans : 12 euros.
+                                            - entre 4 ans et 12 ans : 8 euros.
+                                            - à partir de 60 ans : 12 euros.
+                                            - tarif réduit (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…): 10 euros. Un justificatif à l'entrée du musée sera demandé.
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -64,6 +66,10 @@
                                     <span class="form-label">Type de billet</span>
                                     {{ form_widget(form.type) }}
                                     <span class="select-arrow"></span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Adresse email</span>
+                                    {{ form_widget(form.mail) }}
                                 </div>
                                 <div class="form-btn">
                                     <button type="submit" class="submit-btn">Réservez</button>

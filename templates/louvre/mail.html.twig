@@ -1,0 +1,10 @@
+<img src="https://image.ibb.co/hopuLS/logo.png" alt=""> <br>
+<h1>Musée du Louvre - Billeterie</h1>
+<h2>Nous avons bien reçu votre paiement, voici votre commande :</h2>
+<h3>Date de la visite : {{ date|date("d/m/Y") }}</h3>
+<h3>Prix de la commande : {{ price }} </h3>
+<h3>Le nom et prénom de chaque billet :</h3>
+{% for ticket in tickets %}
+    <p>Nom : {{ ticket.firstname }} Prénom : {{ ticket.lastname }} </p>
+{% endfor %}
+<h3>Votre code de réservation : {{ code }}</h3>

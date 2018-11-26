@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Form\OrdersType;
 use App\Form\TicketsType;
+use App\Service\Mailer;
+use App\Service\Payment;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -41,7 +44,7 @@ class LouvreController extends AbstractController
         $Orders = new Orders();
         $form = $this->createForm(OrdersType::class, $Orders);
         $form->handleRequest($request);
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
             $request->getSession()->set('orders', $formData);
             return $this->redirectToRoute('ticket');
@@ -63,13 +66,14 @@ class LouvreController extends AbstractController
     {
         $data = $request->getSession()->get('orders');
         $number = $data->getNumberOfTickets();
+        dump($data);
         echo $number;
         for ($i=0; $i<$number ;$i++){
         $tickets[] = new Tickets();
         }
         $form = $this->createForm(CollectionType::class, $tickets, ['entry_type' => TicketsType::class, 'allow_add' => true] );
         $form->handleRequest($request);
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
             $request->getSession()->set('tickets', $formData);
             return $this->redirectToRoute('order');
@@ -82,32 +86,62 @@ class LouvreController extends AbstractController
     /**
      * @Route("/order", name="order")
      */
-    public function order(Request $request, Price $priceservice)
+    public function order(Request $request, Price $priceservice, Payment $payment, ObjectManager $manager, Mailer $mailer)
     {
         $data = $request->getSession()->get('orders');
         $tickets = $request->getSession()->get('tickets');
         $number = $data->getNumberOfTickets();
+        $mail = $data->getMail();
         $datedubillet = $data->getDate();
+        for ($i=0; $i<$number ;$i++){
+            if($tickets[$i]->getCategory() == ""){
+                $tickets[$i]->setCategory("tarif normal");
+            }
+            if($tickets[$i]->getCategory() == "1"){
+                $tickets[$i]->setCategory("tarif réduit");
+            }
+
+
+        }
         $price = $priceservice->getTicketsPrice($data, $tickets, $datedubillet);
 
-        //$datedenaissance = $tickets->getDateOfBirth();
 
-
-        for ($i=0; $i<$number ;$i++){
-            $datacategory = $tickets[$i]->getCategory();
-            if ($datacategory == "1"){
-                $category[] = 'Oui';
+        if ($request->isMethod('POST')) {
+            $token = $request->request->get('stripeToken');
+            $payment->Pay($token,$price,$mail);
+            $code = substr(md5(uniqid(rand(), true)), 16, 16);
+            $mailer->createSend($mail, $tickets, $price, $datedubillet, $code);
+            $data->setBookingCode($code);
+            if($data->getType() == ""){
+                $data->setType("demi-journée");
             }
-            else{
-                $category[] = 'Non';
+            if($data->getType() == "1"){
+                $data->setType("journée");
             }
+            $manager->persist($data);
+            $manager->flush();
+            for($i=0; $i<$number ;$i++){
+                $tickets[$i]->setOrders($data);
+                $manager->persist($tickets[$i]);
+            }
+            $manager->flush();
+            return $this->redirectToRoute('success');
+        }
 
-        }return $this->render('louvre/order.html.twig', [
+        return $this->render('louvre/order.html.twig', [
         'number' => $number,
+        'mail' => $mail,
         'price' => $price,
-        'category' => $category,
         'tickets' => $tickets
     ]);
+    }
+    /**
+     * @Route("/success", name="success")
+     */
+    public function success(\Swift_Mailer $mailer)
+    {
+        return $this->render('louvre/success.html.twig');
+
     }
 
 

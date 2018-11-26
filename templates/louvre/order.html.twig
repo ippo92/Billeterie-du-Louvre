@@ -26,7 +26,6 @@
                                             <span class="form-label">Nom</span>
                                             {{ ticket.firstname }}
                                         </div>
-
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
@@ -57,12 +56,61 @@
                             {% endfor %}
                             <div class="form-btn">
                                 PRIX TOTAL : {{ price }} EUROS <br>
-                                <button type="submit" class="submit-btn">Payez</button>
+                                <script src="https://checkout.stripe.com/checkout.js"></script>
+                                <form action="" method="post" id="payment-form">
+                                    <input type="hidden" id="stripeToken" name="stripeToken" value="tok_XXX" />
+                                    <button id="customButton" class="submit-btn">Payez</button>
+                                    <script>
+                                        var handler = StripeCheckout.configure({
+                                            key: 'pk_test_WWlLRtqEY2yfJUlfA4TRRcyf',
+                                            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                            locale: 'auto',
+                                            token: function(token) {
+                                                $("#stripeToken").val(token.id);
+                                                $("#payment-form").submit();
+                                            }
+                                        });
+
+                                        document.getElementById('customButton').addEventListener('click', function(e) {
+                                            // Open Checkout with further options:
+                                            handler.open({
+                                                name: 'Musée du Louvre',
+                                                description: 'Biletterie en ligne',
+                                                currency: 'eur',
+                                                amount: '{{ price }}' * 100,
+                                                email: '{{ mail }}',
+                                                allowRememberMe: false,
+                                            });
+                                            e.preventDefault();
+                                        });
+
+                                        // Close Checkout on page navigation:
+                                        window.addEventListener('popstate', function() {
+                                            handler.close();
+                                        });
+                                    </script>
+                                </form>
                             </div>
+
+
+
                         </div>
+
                 </div>
             </div>
         </div>
+
     </div>
     </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/test.js') }}">
+    </script>
+
 {% endblock %}

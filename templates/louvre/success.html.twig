@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billeterie du Louvre{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-xs-center">
+        <h1 class="display-3">Merci!</h1>
+        <p class="lead"><strong>Votre commande à bien était valider.</strong> Vos billets vous ont était envoyer par mail.</p>
+        <hr>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="{{ path('home') }}" role="button">Se rendre à la page d'accueil</a>
+        </p>
+    </div>
+{% endblock %}

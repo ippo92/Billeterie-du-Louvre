@@ -20,8 +20,6 @@ class TicketsType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'value' => 'Oui',
-                'false_values' => ['Non'],
                 'label' => 'tarif réduit',
                 'required' => false
             ])
@@ -45,10 +43,11 @@ class TicketsType extends AbstractType
             ])
             ->add('dateOfBirth', DateType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control datepicker2'
                 ],
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
+                'html5' => false
             ])
         ;
     }
