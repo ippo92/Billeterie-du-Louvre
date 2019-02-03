@@ -16,7 +16,6 @@
                     </div>
                     <div class="col-md-12 ">
                         <div class="booking-form">
-                            {{ dump(form) }}
                             {{ form_start(form) }}
                             {% for tickets in form  %}
                                 {% set children = tickets.children %}

@@ -49,8 +49,6 @@ class LouvreController extends AbstractController
             $request->getSession()->set('orders', $formData);
             return $this->redirectToRoute('ticket');
             }
-
-
         $repo = $this->getDoctrine()->getRepository(Tickets::class);
         $tickets = $repo->findAll();
         return $this->render('louvre/home.html.twig', [
@@ -66,8 +64,6 @@ class LouvreController extends AbstractController
     {
         $data = $request->getSession()->get('orders');
         $number = $data->getNumberOfTickets();
-        dump($data);
-        echo $number;
         for ($i=0; $i<$number ;$i++){
         $tickets[] = new Tickets();
         }
@@ -100,8 +96,6 @@ class LouvreController extends AbstractController
             if($tickets[$i]->getCategory() == "1"){
                 $tickets[$i]->setCategory("tarif réduit");
             }
-
-
         }
         $price = $priceservice->getTicketsPrice($data, $tickets, $datedubillet);
 
@@ -138,10 +132,9 @@ class LouvreController extends AbstractController
     /**
      * @Route("/success", name="success")
      */
-    public function success(\Swift_Mailer $mailer)
+    public function success()
     {
         return $this->render('louvre/success.html.twig');
-
     }
 
 

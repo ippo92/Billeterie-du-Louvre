@@ -13,6 +13,5 @@ class Payment
             'description' => 'commande faite par'.' '.$mail,
             'source' => $token,
         ]);
-
     }
 }
