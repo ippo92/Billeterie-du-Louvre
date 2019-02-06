@@ -46,11 +46,24 @@ class LouvreController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
-            $request->getSession()->set('orders', $formData);
-            return $this->redirectToRoute('ticket');
+            $repo = $this->getDoctrine()->getRepository(Orders::class);
+            $date = new \DateTime();
+            $date = date_format($date, 'd-m-Y');
+            $count = count($repo->findBy(['date' => new \DateTime($date)]));
+            if ($count < 999) {
+                $request->getSession()->set('orders', $formData);
+                return $this->redirectToRoute('ticket');
             }
-        $repo = $this->getDoctrine()->getRepository(Tickets::class);
-        $tickets = $repo->findAll();
+            else {
+                $this->addFlash(
+                    'danger',
+                    $message = "Plus de 1000 tickets ont deja été réservés pour ce jour. Merci de choisir une autre date de visite"
+                );
+                return $this->render('louvre/home.html.twig', [
+                    'form' => $form->createView()
+                ]);
+            }
+        }
         return $this->render('louvre/home.html.twig', [
             'form' => $form->createView()
         ]);
